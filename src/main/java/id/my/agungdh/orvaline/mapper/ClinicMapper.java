@@ -12,6 +12,8 @@ public interface ClinicMapper {
     ClinicMapper INSTANCE = Mappers.getMapper(ClinicMapper.class);
 
     List<ClinicDTO> toDTOList(List<Clinic> clinics);
+
     ClinicDTO toDto(Clinic clinic);
+
     Clinic toClinic(ClinicDTO clinicDTO);
 }

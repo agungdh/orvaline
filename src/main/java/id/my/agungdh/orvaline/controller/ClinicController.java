@@ -2,7 +2,6 @@ package id.my.agungdh.orvaline.controller;
 
 import id.my.agungdh.orvaline.dto.ClinicDTO;
 import id.my.agungdh.orvaline.entity.Clinic;
-import id.my.agungdh.orvaline.mapper.ClinicMapper;
 import id.my.agungdh.orvaline.service.ClinicService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

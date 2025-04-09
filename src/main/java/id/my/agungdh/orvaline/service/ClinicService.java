@@ -6,7 +6,6 @@ import id.my.agungdh.orvaline.mapper.ClinicMapper;
 import id.my.agungdh.orvaline.repository.ClinicRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;

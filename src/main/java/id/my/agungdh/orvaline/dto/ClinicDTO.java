@@ -11,4 +11,5 @@ public record ClinicDTO(
         String description,
         @NotBlank
         String token
-) { }
+) {
+}
