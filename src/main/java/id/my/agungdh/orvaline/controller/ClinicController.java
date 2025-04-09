@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/clinic")
@@ -27,9 +28,23 @@ public class ClinicController {
         return ResponseEntity.ok(clinicService.create(clinicDTO));
     }
 
-    public ResponseEntity<ClinicDTO> getClinic(String id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<ClinicDTO> getClinic(@PathVariable String id) {
+        Optional<Clinic> clinic = clinicService.getClinicEntity(id);
 
+        return clinic.map(value -> ResponseEntity.ok(clinicService.getClinic(value))).orElseGet(() -> ResponseEntity.notFound().build());
+    }
 
-        return ResponseEntity.ok(null);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable String id) {
+        Optional<Clinic> clinic = clinicService.getClinicEntity(id);
+
+        if (clinic.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        clinicService.delete(clinic.get());
+
+        return ResponseEntity.noContent().build();
     }
 }

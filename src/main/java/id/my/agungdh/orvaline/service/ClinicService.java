@@ -6,8 +6,10 @@ import id.my.agungdh.orvaline.mapper.ClinicMapper;
 import id.my.agungdh.orvaline.repository.ClinicRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,5 +29,17 @@ public class ClinicService {
         clinicRepository.save(clinic);
 
         return clinicMapper.toDto(clinic);
+    }
+
+    public void delete(Clinic clinic) {
+        clinicRepository.delete(clinic);
+    }
+
+    public ClinicDTO getClinic(Clinic clinic) {
+        return clinicMapper.toDto(clinic);
+    }
+
+    public Optional<Clinic> getClinicEntity(String id) {
+        return clinicRepository.findById(id);
     }
 }
