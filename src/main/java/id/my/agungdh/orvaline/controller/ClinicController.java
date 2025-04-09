@@ -34,6 +34,19 @@ public class ClinicController {
         return clinic.map(value -> ResponseEntity.ok(clinicService.getClinic(value))).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<ClinicDTO> update(@PathVariable String id, @RequestBody @Valid ClinicDTO clinicDTO) {
+        Optional<Clinic> clinic = clinicService.getClinicEntity(id);
+
+        if (clinic.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        ClinicDTO updatedClinic = clinicService.update(clinic.get(), clinicDTO);
+
+        return ResponseEntity.ok(updatedClinic);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         Optional<Clinic> clinic = clinicService.getClinicEntity(id);

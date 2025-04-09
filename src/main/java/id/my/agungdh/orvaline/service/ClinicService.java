@@ -30,6 +30,16 @@ public class ClinicService {
         return clinicMapper.toDto(clinic);
     }
 
+    public ClinicDTO update(Clinic clinic, ClinicDTO clinicDTO) {
+        Clinic clinicEntity = clinicMapper.toClinic(clinicDTO);
+
+        clinicEntity.setId(clinic.getId());
+
+        clinicRepository.save(clinicEntity);
+
+        return clinicMapper.toDto(clinicEntity);
+    }
+
     public void delete(Clinic clinic) {
         clinicRepository.delete(clinic);
     }
