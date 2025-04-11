@@ -31,13 +31,10 @@ public class ClinicService {
     }
 
     public ClinicDTO update(Clinic clinic, ClinicDTO clinicDTO) {
-        Clinic clinicEntity = clinicMapper.toClinic(clinicDTO);
+        clinicMapper.updateEntityFromDTO(clinicDTO, clinic);
+        clinicRepository.save(clinic);
 
-        clinicEntity.setId(clinic.getId());
-
-        clinicRepository.save(clinicEntity);
-
-        return clinicMapper.toDto(clinicEntity);
+        return clinicMapper.toDto(clinic);
     }
 
     public void delete(Clinic clinic) {

@@ -3,6 +3,8 @@ package id.my.agungdh.orvaline.mapper;
 import id.my.agungdh.orvaline.dto.ClinicDTO;
 import id.my.agungdh.orvaline.entity.Clinic;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
@@ -13,4 +15,7 @@ public interface ClinicMapper {
     ClinicDTO toDto(Clinic clinic);
 
     Clinic toClinic(ClinicDTO clinicDTO);
+
+    @Mapping(target = "id", ignore = true)
+    void updateEntityFromDTO(ClinicDTO dto, @MappingTarget Clinic entity);
 }
