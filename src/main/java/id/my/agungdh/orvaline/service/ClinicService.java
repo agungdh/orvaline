@@ -2,6 +2,7 @@ package id.my.agungdh.orvaline.service;
 
 import id.my.agungdh.orvaline.dto.ClinicDTO;
 import id.my.agungdh.orvaline.entity.Clinic;
+import id.my.agungdh.orvaline.exception.NotFoundException;
 import id.my.agungdh.orvaline.mapper.ClinicMapper;
 import id.my.agungdh.orvaline.repository.ClinicRepository;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +49,8 @@ public class ClinicService {
         return clinicMapper.toDto(clinic);
     }
 
-    public Optional<Clinic> getClinicEntity(String id) {
-        return clinicRepository.findById(id);
+    public Clinic getClinicOrThrow(String id) {
+        return clinicRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Clinic with id " + id + " not found"));
     }
 }
