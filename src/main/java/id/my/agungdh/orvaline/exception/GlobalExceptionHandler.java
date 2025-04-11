@@ -7,6 +7,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.time.ZonedDateTime;
 import java.util.HashMap;
@@ -45,5 +46,19 @@ public class GlobalExceptionHandler {
         response.put("method", request.getMethod());
 
         return ResponseEntity.badRequest().body(response);
+    }
+
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public ResponseEntity<Object> handleNoHandlerFound(NoHandlerFoundException ex, HttpServletRequest request) {
+        Map<String, Object> response = new HashMap<>();
+
+        response.put("status", HttpStatus.NOT_FOUND.value());
+        response.put("error", "Not Found");
+        response.put("message", "No handler found for " + ex.getHttpMethod() + " " + ex.getRequestURL());
+        response.put("timestamp", ZonedDateTime.now());
+        response.put("path", request.getRequestURI());
+        response.put("method", request.getMethod());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
 }
